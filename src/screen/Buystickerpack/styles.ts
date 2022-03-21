@@ -3,9 +3,7 @@ import { TouchableOpacityProps } from 'react-native'
 import { RFValue } from 'react-native-responsive-fontsize'
 import styled from 'styled-components/native'
 
-interface ButtonProps  extends TouchableOpacityProps{
-    onPress: () => void
-}
+
 
 export const Container = styled.View`
    flex: 1;
@@ -91,7 +89,7 @@ export const QuantityCounter = styled.View`
     margin-bottom: ${RFValue(-5)}px;
 `
 
-export const Footer = styled.TouchableOpacity<ButtonProps>`
+export const Footer = styled.TouchableOpacity`
     margin-top: 10px;
     background-color: ${({theme}) => theme.colors.primary_light};
     height: 100px;

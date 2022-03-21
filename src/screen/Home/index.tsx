@@ -1,3 +1,4 @@
+import { useRoute } from '@react-navigation/native'
 import React from 'react'
 import { StatusBar, Text } from 'react-native'
 import {
@@ -8,6 +9,11 @@ import {
 
 export function Home(){
 
+    const route = useRoute()
+    const {dataProps} = route.params 
+    console.log(dataProps.name)
+
+      console.log(dataProps)
    return(
       <Container>
           <StatusBar 
@@ -15,7 +21,7 @@ export function Home(){
             backgroundColor="transparent"
             translucent
           />
-          <Text>Finalizar Transação</Text>
+          <Text>Finalizar Transação {dataProps.comments} </Text>
       </Container>
    )
 }

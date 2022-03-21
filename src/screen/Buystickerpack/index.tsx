@@ -21,16 +21,26 @@ interface Data {
 export function Buystickerpack({key, name}: Data){
     const theme = useTheme()
     const [ counter, setCounter] = useState(0)
-    const [selected, setSelected] = useState(false)
+    const [selected, setSelected] = useState([false])
+    const [comments, setComments] = useState('')
     const navigation = useNavigation()
+
+    const dataProps = {comments, counter}
 
     const subtrack = () => setCounter(counter - 1)
     const add = () => setCounter(counter + 1)
 
     function handleHome(){
-        navigation.navigate('Home', )
+        navigation.navigate('Home', {dataProps})
     }
 
+    function handleSelected(index, item){
+        setSelected(old => {
+          const newValues = [...old]  
+          newValues[index ] = !newValues[index]
+            return newValues
+        })
+    }
 
    return(
       <Container>
@@ -51,12 +61,12 @@ export function Buystickerpack({key, name}: Data){
             <FlatList 
                 data={data}
                 keyExtractor={(item) => item.key}
-                renderItem={({item}) => (
+                renderItem={({item, index}) => (
                 <ListItems >
                     <Checkbox
-                        status={ 'checked' || 'unchecked'}
+                        status={selected[index] ? 'checked' : 'unchecked'}
                         color='blue'
-                        onPress={() => setSelected(true)}
+                        onPress={() => handleSelected(index)}
                     />
                     <Title>{item.name}</Title>
             </ListItems>
@@ -90,6 +100,8 @@ export function Buystickerpack({key, name}: Data){
                 <TextInput 
                     style={{height: 100, marginBottom: 10,}}
                     placeholder='Alguma dúvida? Reacado?'
+                    onChangeText={setComments}
+                    value={comments}
                 />
             </SafeAreaView>
             
